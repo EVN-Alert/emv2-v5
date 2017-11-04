@@ -24,6 +24,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func EVARSwitch(_ sender: UISwitch) {
         if EVARSwitch.isOn {
             EVARView.text = "Enabled"
+            evLoad()
         } else {
             EVARView.text = "Disabled"
         }
@@ -35,6 +36,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         evLoad()
+        EVARView.text = "Disabled"
         // Do any additional setup after loading the view, typically from a nib.
 }
     
@@ -111,24 +113,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             print("There was an error refreshing EVInfo from source. Please try again!")
         }
     }
-    
-    @IBAction func autoEVR(_ sender: UIButton) {
-        var index = 10
-        while index >= 0 {
-            index -= 1
-            print("Here is the index ", index)
-            evLoad()
-            print("Refresh queued")
-            sleep(1)
-            if evLocDidRefresh == true {
-                print("Refreshed from source")
-                evLocDidRefresh = false
-            } else {
-                print("There was an error refreshing EVInfo from source. Please try again!")
-            }
-            sleep(3)
-        }
-    }
+
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
