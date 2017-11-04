@@ -19,10 +19,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var evLatitude: UITextField!
     @IBOutlet weak var evLongitude: UITextField!
     @IBOutlet weak var evDistance: UITextField!
-    @IBOutlet weak var TARView: UITextField!
+    @IBOutlet weak var EVARView: UILabel!
+    @IBOutlet weak var EVARSwitch: UISwitch!
+    @IBAction func EVARSwitch(_ sender: UISwitch) {
+        if EVARSwitch.isOn {
+            EVARView.text = "Enabled"
+        } else {
+            EVARView.text = "Disabled"
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        TARView.text = String("disabled")
         locationManager.delegate  = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
@@ -121,7 +129,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             sleep(3)
         }
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
