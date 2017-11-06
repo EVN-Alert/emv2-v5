@@ -13,6 +13,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var latitude: Double?
     var longitude: Double?
     var altitude: Double?
+    var myTimer: Timer? = nil
     let locationManager = CLLocationManager()
     @IBOutlet weak var myLatitude: UITextField!
     @IBOutlet weak var myLongitude: UITextField!
@@ -24,8 +25,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func EVARSwitch(_ sender: UISwitch) {
         if EVARSwitch.isOn {
             EVARView.text = "Enabled"
-            evLoad()
-        } else {
+            myTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(evLoad), userInfo: nil, repeats: true)
+            } else {
             EVARView.text = "Disabled"
         }
     }
@@ -60,7 +61,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         myLongitude.text = String(longitude!)
     }
     
-    func evLoad() {
+    @objc func evLoad() {
         super.viewDidLoad()
         fetchURL()
        // performSelector(inBackground: #selector(fetchURL), with: nil)
