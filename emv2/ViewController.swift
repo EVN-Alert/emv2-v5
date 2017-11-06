@@ -24,10 +24,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var EVARSwitch: UISwitch!
     @IBAction func EVARSwitch(_ sender: UISwitch) {
         if EVARSwitch.isOn {
-            EVARView.text = "Enabled"
+            EVARView.text = "Fetching EV Location"
             myTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(evLoad), userInfo: nil, repeats: true)
             } else {
-            EVARView.text = "Disabled"
+            EVARView.text = "Inactive"
+            myTimer?.invalidate()
+            myTimer = nil
         }
     }
     
