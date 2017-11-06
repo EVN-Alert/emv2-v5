@@ -39,7 +39,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         evLoad()
-        EVARView.text = "Disabled"
+        EVARView.text = "Inactive"
         // Do any additional setup after loading the view, typically from a nib.
 }
     
@@ -70,6 +70,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     var evLocDidRefresh = false
+    var once = 0
     
     func fetchURL() {
         var data = "00 A 0.0 0.0"
@@ -91,6 +92,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 evDistance.text = String(idistance)
                 //evDistance.text = "33"
                 evLocDidRefresh = true
+                if distance < 700 {
+                    if once == 0 {
+                        once = 1
+                        let alert = UIAlertController(title: "Warning!", message: "Emergency vehicle nearby", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("Acknowledge", comment: "Default action"), style: .`default`, handler: { _ in
+                            NSLog("The \"OK\" alert occured.")
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    }
+                }
             } catch {
                 // error loading
                 data = "9 A 9.0 9.0"
